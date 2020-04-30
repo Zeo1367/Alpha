@@ -1,0 +1,30 @@
+alpha:
+#  graylogHost=${GRAYLOG_HOST}
+#  graylogPort=${GRAYLOG_PORT}
+
+  data-source:
+    jdbcUrl: jdbc:mariadb://${PRIMARY_DB_HOST}:${PRIMARY_DB_HOST_PORT}/${PRIMARY_DB_NAME}?autoReconnect=true
+    username: ${PRIMARY_DB_USER_NAME}
+    password: ${PRIMARY_DB_PASSWORD}
+    autoCommit: false
+    connectionTimeout: 600000
+    maxLifetime: 3600000
+    idleTimeout: 600000
+    connectionTestQuery: select 2+2;
+    minimumIdle: 10
+    maximumPoolSize: 20
+    poolName: alpha-pool
+    leakDetectionThreshold: 50000
+    initialize: false
+
+    # whether to generate unique name for the data source
+    generateUniqueName: false
+
+    # the name of the data source
+    name: ${PRIMARY_DB_NAME}
+    databaseName: ${PRIMARY_DB_NAME}
+
+  resources:
+    databaseName: ${PRIMARY_DB_NAME}
+    redisPort: 3306
+    redisHostName: 127.0.0.1
