@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SignUpRequest extends BaseObject{
+public class SignUpRequest extends BaseObject {
 
     private UserInfo userInfo;
 

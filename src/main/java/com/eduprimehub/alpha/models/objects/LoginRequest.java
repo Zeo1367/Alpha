@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class LoginRequest extends BaseObject{
+public class LoginRequest extends BaseObject {
 
     private String userName;
 

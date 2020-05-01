@@ -2,14 +2,20 @@ package com.eduprimehub.alpha.controllers;
 
 import com.eduprimehub.alpha.models.objects.*;
 import com.eduprimehub.alpha.services.LoginService;
+import com.eduprimehub.alpha.utils.ApplicationConstant;
+import com.eduprimehub.alpha.utils.ErrorCode;
+import com.eduprimehub.alpha.utils.GlobalExceptionHandler;
+import com.eduprimehub.alpha.validators.LoginValidator;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.Response;
 
 @Slf4j
 @RestController("/login")
@@ -17,27 +23,35 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private LoginValidator loginValidator;
 
-    @RequestMapping(path = "/external", method = RequestMethod.POST)
-    public BaseResponse<LoginResponse> loginExternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
-                                                      HttpServletRequest httpServletRequest) {
-        GenericResponse<LoginResponse> response = new GenericResponse<LoginResponse>();
+
+    @SneakyThrows
+    @PostMapping(value = ApplicationConstant.LOGIN_EXTERNAL_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> loginExternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
+                                               HttpServletRequest httpServletRequest) {
+//        GenericResponse<LoginResponse> response = new GenericResponse<>();
+
         try {
-            LoginRequest loginRequest = loginRequestObject.getRequest();
+            //Todo: validator to be more effective
+            LoginRequest loginRequest = loginValidator.validateLoginRequestObject(loginRequestObject);
             LoginResponse loginResponseObject = loginService.loginExternalUser(loginRequest);
-            return response.createSuccessResponse(loginResponseObject, null);
+            //Todo: look for the response logic more generic
+            return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseObject);
+            //Todo: look for more generic exception logic
         } catch (BusinessException be) {
-            log.info("Business Exp {}", be);
-            return response.createErrorResponse(be.getErrorCode(), be.getMessage());
+            log.info("Business Exp {}", (Object) be.getStackTrace());
+            throw new BusinessException(be.getMessage());
         } catch (Exception th) {
             log.info("login Exp {}", (Object) th.getStackTrace());
-            return response.createErrorResponse(401, "ResponseCodeHandler.getMessage(401)");
+            throw new BusinessException(th.getMessage());
         }
     }
 
     @RequestMapping(path = "/internal", method = RequestMethod.POST)
     public BaseResponse<LoginResponse> loginInternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
-                                                        HttpServletRequest httpServletRequest) {
+                                                         HttpServletRequest httpServletRequest) {
         GenericResponse<LoginResponse> response = new GenericResponse<LoginResponse>();
         try {
             LoginRequest loginRequest = loginRequestObject.getRequest();

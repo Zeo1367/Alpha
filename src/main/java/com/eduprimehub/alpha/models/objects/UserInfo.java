@@ -14,16 +14,16 @@ import lombok.ToString;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserInfo extends BaseObject{
+public class UserInfo extends BaseObject {
 
-    private String uuID;
+    private String id;
     private String firstName;
     private String lastName;
     private String userName;
     private String mobileNumber;
     private String email;
     private String status;
-    private String ownerType;
+    private String userType;
     private Boolean isUserVerified;
-    private Boolean isFirstTimeLogin;
+
 }

@@ -15,14 +15,9 @@ public enum UserType {
     FIRM("FIRM");
 
     /**
-     * String type field of UserType enum for accessing userType enum
-     */
-    private String userType;
-
-    /**
      * Map containing the String value of UserTypes and all the userType enums
      */
-    private static Map<String, UserType> UserTypeMap = new HashMap<>();
+    private static final Map<String, UserType> UserTypeMap = new HashMap<>();
 
     /**
      * static block for loading the UserType map
@@ -32,6 +27,11 @@ public enum UserType {
             UserTypeMap.put(UserType.name(), UserType);
         }
     }
+
+    /**
+     * String type field of UserType enum for accessing userType enum
+     */
+    private final String userType;
 
     /**
      * Constructor of the enum

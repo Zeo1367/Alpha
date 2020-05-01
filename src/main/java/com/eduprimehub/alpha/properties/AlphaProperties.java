@@ -21,4 +21,7 @@ public class AlphaProperties {
 
     @NotEmpty(message = "redis port cannot be null!")
     private Integer redisPort;
+
+    @NotEmpty(message = "token expiry time cannot be null!")
+    private Integer tokenExpiryTime;
 }

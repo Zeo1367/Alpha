@@ -41,12 +41,12 @@ public class BaseResponse<T> extends BaseObject {
     public BaseResponse(T result,
                         List<Error> errors,
                         String status) {
-        this(new Date().getTime(), result, errors,status);
+        this(new Date().getTime(), result, errors, status);
     }
 
     public BaseResponse(T result,
                         String status) {
-        this(result, null,status);
+        this(result, null, status);
     }
 
     public BaseResponse(T result) {

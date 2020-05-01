@@ -11,36 +11,38 @@ public enum Gender {
     OTHER("OTHER");
 
     /**
-     * String type field of UserType enum for accessing userType enum
+     * Map containing the String value of Genders and all the Gender enums
      */
-    private String gender;
+    private static final Map<String, Gender> genderMap = new HashMap<>();
 
-    /**
-     * Map containing the String value of UserTypes and all the userType enums
-     */
-    private static Map<String, Gender> genderMap = new HashMap<>();
-
-    /**
-     * static block for loading the UserType map
+    /*
+      the static block for loading the Gender map
      */
     static {
-        for (Gender Gender : Gender.values()) {
-            genderMap.put(Gender.name(), Gender);
+        for (Gender gender : Gender.values()) {
+            genderMap.put(gender.name(), gender);
         }
     }
 
     /**
+     * String type field of Gender enum for accessing Gender enum
+     */
+    private final String gender;
+
+    /**
      * Constructor of the enum
      *
-     * @param gender creates UserType object for the enum
+     * @param gender creates Gender object for the enum
      */
     Gender(String gender) {
         this.gender = gender;
     }
 
     /**
+     * Method for getting enum from the String value
+     *
      * @param gender look for enum present in the map from the String type value
-     * @return UserType enum
+     * @return Gender enum
      */
     public static Gender fromGender(String gender) {
 
@@ -50,6 +52,11 @@ public enum Gender {
         return null;
     }
 
+    /**
+     * Getter for the enum values
+     *
+     * @return String value of the enum
+     */
     public String getGender() {
         return gender;
     }

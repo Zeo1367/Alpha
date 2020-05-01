@@ -16,5 +16,6 @@ public class LoginResponse extends BaseObject {
     private UserInfo userInfo;
     private String token;
     private Long tokenExpiry;
+    private Boolean isFirstTimeLogin;
 
 }

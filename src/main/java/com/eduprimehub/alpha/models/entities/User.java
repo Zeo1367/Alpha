@@ -1,5 +1,6 @@
 package com.eduprimehub.alpha.models.entities;
 
+import com.eduprimehub.alpha.models.enums.Status;
 import com.eduprimehub.alpha.models.enums.UserType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,14 +13,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user")
 @Data
-public class User extends BaseActorEntity{
+public class User extends BaseActorEntity {
 
-    @Column(name = "is_active",nullable = false)
-    private Boolean isActive;
-
-    @Column(name = "is_premium_user")
+    @Column(name = "is_premium_user", nullable = false)
     private Boolean isPremiumUser;
 
-    @Column(name = "user_type",columnDefinition = "varchar(20)",nullable = false)
+    @Column(name = "status", nullable = false)
+    private Status status;
+
+    @Column(name = "user_type", columnDefinition = "varchar(15)", nullable = false)
     private UserType userType;
 }

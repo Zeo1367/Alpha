@@ -1,6 +1,6 @@
 alpha:
-#  graylogHost=${GRAYLOG_HOST}
-#  graylogPort=${GRAYLOG_PORT}
+  #  graylogHost=${GRAYLOG_HOST}
+  #  graylogPort=${GRAYLOG_PORT}
 
   data-source:
     jdbcUrl: jdbc:mariadb://${PRIMARY_DB_HOST}:${PRIMARY_DB_HOST_PORT}/${PRIMARY_DB_NAME}?autoReconnect=true
