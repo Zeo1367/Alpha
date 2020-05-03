@@ -23,7 +23,7 @@ public class SignupService {
     public LoginResponse signUpExternalUser(SignUpRequest signUpRequest) throws BusinessException {
         LoginResponse loginResponse = new LoginResponse();
         UserInfo userInfo = signUpRequest.getUserInfo();
-        User user = userRepository.findUserByIdAndIsActive(userInfo.getUserName(), true);
+            User user = userRepository.findUserByIdAndIsActive(userInfo.getUserName(), true);
         if (user == null) {
             user = userHelper.getUserFromUserInfo(userInfo);
             //Todo: complete loginResponse

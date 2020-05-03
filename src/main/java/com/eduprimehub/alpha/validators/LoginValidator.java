@@ -14,4 +14,9 @@ public class LoginValidator {
         ValidationUtils.assertNotNull(loginRequest,loginRequest.getUserName(),loginRequest.getPassword());
         return loginRequest;
     }
+
+    public String validateForgorRequest(String userName){
+        ValidationUtils.assertNotNull(userName);
+        return userName;
+    }
 }
