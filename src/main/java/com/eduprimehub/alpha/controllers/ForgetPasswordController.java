@@ -18,9 +18,18 @@ import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestController("/password")
+//Aditya: above mapping of password is perfect but always name classes with service not parts of feature
+//eg. password is a service but forgot password is a specific feature of password service.
+// other features can be update password so if you name this as forgot password then you won't be able to create
+// update password api here and then you have to make a new class for it which will be troublesome because
+// again all re work of creating class.
 public class ForgetPasswordController {
+
+    //Aditya: this is showing warning that it will not create bean of it please check why?
     @Autowired
     private ForgetPasswordService forgetPasswordService;
+
+    //Aditya: here it can work but always create a different validator class of a service never mix two service together
     @Autowired
     private LoginValidator loginValidator;
 
@@ -31,6 +40,7 @@ public class ForgetPasswordController {
         GenericResponse<ForgotResponse> response = new GenericResponse<>();
 
         try {
+            //Aditya: naming of the method
             String userNameRequest = loginValidator.validateForgorRequest(userName);
 
             ForgotResponse forgotResponse = forgetPasswordService.forgotPasswordService(userNameRequest);
