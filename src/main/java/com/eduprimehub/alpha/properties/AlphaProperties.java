@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @Component
 @Validated
-@ConfigurationProperties("alpha.resources")
+@ConfigurationProperties("alpha")
 public class AlphaProperties {
 
     @NotEmpty(message = "database name cannot be null!")
@@ -20,8 +20,14 @@ public class AlphaProperties {
     private String redisHost;
 
     @NotEmpty(message = "redis port cannot be null!")
-    private Integer redisPort;
+    private String redisPort;
+
+    @NotEmpty(message = "redis should either be active or inactive!")
+    private String redisActive;
 
     @NotEmpty(message = "token expiry time cannot be null!")
-    private Integer tokenExpiryTime;
+    private String tokenExpiryTime;
+
+    @NotEmpty(message = "token expiry time unit cannot be null!")
+    private String tokenExpiryTimeUnit;
 }

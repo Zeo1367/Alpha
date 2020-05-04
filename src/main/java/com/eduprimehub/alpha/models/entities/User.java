@@ -1,26 +1,21 @@
 package com.eduprimehub.alpha.models.entities;
 
-import com.eduprimehub.alpha.models.enums.Status;
 import com.eduprimehub.alpha.models.enums.UserType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "user")
 @Data
-public class User extends BaseActorEntity {
+public class User extends BaseActorEntity implements Serializable {
 
-    @Column(name = "is_premium_user", nullable = false)
-    private Boolean isPremiumUser;
+    @Column(name = "username", columnDefinition = "varchar(20)", nullable = false)
+    private String userName;
 
-    @Column(name = "status", nullable = false)
-    private Status status;
-
-    @Column(name = "user_type", columnDefinition = "varchar(15)", nullable = false)
-    private UserType userType;
+    @Column(name = "user_type", columnDefinition = "varchar(50)", nullable = false)
+    private String userType;
 }

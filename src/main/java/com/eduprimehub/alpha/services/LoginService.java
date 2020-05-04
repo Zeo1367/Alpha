@@ -2,15 +2,20 @@ package com.eduprimehub.alpha.services;
 
 import com.eduprimehub.alpha.helpers.UserHelper;
 import com.eduprimehub.alpha.models.entities.User;
+import com.eduprimehub.alpha.models.entities.UserAccessDetails;
+import com.eduprimehub.alpha.models.enums.TokenTag;
+import com.eduprimehub.alpha.models.enums.UserAccountStatus;
 import com.eduprimehub.alpha.models.objects.BusinessException;
 import com.eduprimehub.alpha.models.objects.LoginRequest;
 import com.eduprimehub.alpha.models.objects.LoginResponse;
-import com.eduprimehub.alpha.models.objects.UserInfo;
+import com.eduprimehub.alpha.repositories.UserAccessDetailsRepository;
 import com.eduprimehub.alpha.repositories.UserRepository;
 import com.eduprimehub.alpha.utils.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -18,33 +23,50 @@ public class LoginService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private UserHelper userHelper;
+
     @Autowired
     private TokenHandler tokenHandler;
 
-    //TOdo: complete login
+    @Qualifier("userAccessDetailsRepository")
+    @Autowired
+    private UserAccessDetailsRepository userAccessDetailsRepository;
+
+
     public LoginResponse loginExternalUser(LoginRequest loginRequest) throws BusinessException {
-        LoginResponse loginResponse = new LoginResponse();
-        User user = userRepository.findUserByIdAndIsActive(loginRequest.getUserName(), true);
+        User user = userRepository.findUserByUserName(loginRequest.getUserName());
+        UserAccessDetails userAccessDetails;
+
         if (user != null) {
-            UserInfo userInfo = userHelper.getUserInfoFromUser(user);
-            //TOdo: apply redis fetcher for the token
-            //Todo: fetch token for the user
-            Map<String,String> tokenMap = tokenHandler.fetchToken( userInfo.getId());
-            if(tokenMap==null){
-                tokenMap = tokenHandler.createToken(userInfo.getUserName(), userInfo.getId());
+            String token = tokenHandler.fetchToken(user.getUserName());
+            Map<TokenTag, String> tokenMap;
+
+            if (token != null) {
+                return userHelper.getLoginResponse(user, null,token);
+
+            } else {
+                userAccessDetails = userAccessDetailsRepository.findUserAccessDetailsByUuidAndAndUserAccountStatus
+                        (user, UserAccountStatus.ACTIVE.getUserAccountStatus());
+
+                if (userAccessDetails != null) {
+                    tokenMap = tokenHandler.createToken(user.getUserName(), user.getUuid());
+                    updateNewTokenToUserAccessDetails(userAccessDetails, tokenMap);
+
+                    return userHelper.getLoginResponse(user, userAccessDetails, userAccessDetails.getToken());
+                } else {
+                    throw new BusinessException("User is not Active! Please contact Admin!");
+                }
             }
-            //Todo: complete loginResponse
-            loginResponse.setUserInfo(userInfo);
-            loginResponse.setToken(tokenMap.get("TOKEN"));
-
-            //Todo: correct token Expiry logic
-            loginResponse.setTokenExpiry(Long.valueOf(tokenMap.get("TIMEOUT")));
-
-            return loginResponse;
         } else {
-            throw  new BusinessException("user doesn't exists!");
+            throw new BusinessException("user doesn't exists!");
         }
+    }
+
+    private void updateNewTokenToUserAccessDetails(UserAccessDetails userAccessDetails, Map<TokenTag, String> tokenMap) {
+        userAccessDetails.setToken(tokenMap.get(TokenTag.TOKEN));
+        userAccessDetails.setTokenExpiryTime(Long.valueOf(tokenMap.get(TokenTag.TIMEOUT)));
+        userAccessDetailsRepository.save(userAccessDetails);
     }
 }

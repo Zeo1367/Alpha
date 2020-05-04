@@ -3,9 +3,9 @@ alpha:
   #  graylogPort=${GRAYLOG_PORT}
 
   data-source:
-    jdbcUrl: jdbc:mariadb://${PRIMARY_DB_HOST}:${PRIMARY_DB_HOST_PORT}/${PRIMARY_DB_NAME}?autoReconnect=true
-    username: ${PRIMARY_DB_USER_NAME}
-    password: ${PRIMARY_DB_PASSWORD}
+    jdbcUrl: jdbc:mysql://${ALPHA_PRIMARY_DB_HOST}:${ALPHA_PRIMARY_DB_PORT}/${ALPHA_PRIMARY_DB_NAME}?autoReconnect=true
+    username: ${ALPHA_PRIMARY_DB_USER_NAME}
+    password: ${ALPHA_PRIMARY_DB_PASSWORD}
     autoCommit: false
     connectionTimeout: 600000
     maxLifetime: 3600000
@@ -21,10 +21,29 @@ alpha:
     generateUniqueName: false
 
     # the name of the data source
-    name: ${PRIMARY_DB_NAME}
-    databaseName: ${PRIMARY_DB_NAME}
+    name: ${ALPHA_PRIMARY_DB_USER_NAME}
+    databaseName: ${ALPHA_PRIMARY_DB_NAME}
 
-  resources:
-    databaseName: ${PRIMARY_DB_NAME}
-    redisPort: 3306
-    redisHostName: 127.0.0.1
+  primaryDatabaseName: ${ALPHA_PRIMARY_DB_NAME}
+  redisHostName: ${ALPHA_REDIS_HOST}
+  redisPort: ${ALPHA_REDIS_PORT}
+  redisActive: ${ALPHA_REDIS_ACTIVE}
+  tokenExpiryTime: ${ALPHA_TOKEN_EXPIRY_TIME}
+  tokenExpiryTimeUnit: ${ALPHA_TOKEN_EXPIRY_TIME_UNIT}
+
+#spring:
+#  mail:
+#    host: ${SMTP_HOST}
+#    port: ${SMTP_PORT}
+#    username: ${SMTP_USERNAME}
+#    password: ${SMTP_PASSWORD}
+#    properties:
+#      mail:
+#        smtp:
+#          starttls:
+#            enable: true
+#            required: true
+#          auth: true
+#          connectiontimeout: 10000
+#          timeout: 10000
+#          writetimeout: 10000

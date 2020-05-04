@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.Response;
 
 @Slf4j
-@RestController("/login")
+@RequestMapping(ApplicationConstant.LOGIN_BASE_URL)
+@RestController
 public class LoginController {
 
     @Autowired
@@ -29,16 +30,17 @@ public class LoginController {
 
     @SneakyThrows
     @PostMapping(value = ApplicationConstant.LOGIN_EXTERNAL_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> loginExternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
+    public BaseResponse<?> loginExternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
                                                HttpServletRequest httpServletRequest) {
-//        GenericResponse<LoginResponse> response = new GenericResponse<>();
+        GenericResponse<LoginResponse> response = new GenericResponse<>();
 
         try {
             //Todo: validator to be more effective
             LoginRequest loginRequest = loginValidator.validateLoginRequestObject(loginRequestObject);
             LoginResponse loginResponseObject = loginService.loginExternalUser(loginRequest);
             //Todo: look for the response logic more generic
-            return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseObject);
+//            return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseObject);
+            return response.createSuccessResponse(loginResponseObject, 200);
             //Todo: look for more generic exception logic
         } catch (BusinessException be) {
             log.info("Business Exp {}", (Object) be.getStackTrace());

@@ -14,8 +14,9 @@ import lombok.ToString;
 public class LoginResponse extends BaseObject {
 
     private UserInfo userInfo;
+    private UserAccessDetailInfo userAccessDetailInfo;
     private String token;
-    private Long tokenExpiry;
-    private Boolean isFirstTimeLogin;
+    private String tokenExpiryTime;
+    private String tokenExpiryTimeUnit;
 
 }

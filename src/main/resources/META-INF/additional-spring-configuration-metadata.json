@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "alpha.tokenExpiryTimeUnit",
+      "type": "java.lang.String",
+      "description": "Description for alpha.tokenExpiryTimeUnit."
+    },
+    {
+      "name": "alpha.data-source.jdbcUrl",
+      "type": "java.lang.String",
+      "description": "Description for alpha.data-source.jdbcUrl."
+    },
+    {
+      "name": "alpha.data-source.username",
+      "type": "java.lang.String",
+      "description": "Description for alpha.data-source.username."
+    },
+    {
+      "name": "alpha.data-source.password",
+      "type": "java.lang.String",
+      "description": "Description for alpha.data-source.password."
+    },
+    {
+      "name": "alpha.data-source.autoCommit",
+      "type": "java.lang.String",
+      "description": "Description for alpha.data-source.autoCommit."
+    },
+    {
+      "name": "alpha.data-source.connectionTimeout",
+      "type": "java.lang.String",
+      "description": "Description for alpha.data-source.connectionTimeout."
+    }
+  ] }
