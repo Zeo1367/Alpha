@@ -3,19 +3,13 @@ package com.eduprimehub.alpha.controllers;
 import com.eduprimehub.alpha.models.objects.*;
 import com.eduprimehub.alpha.services.LoginService;
 import com.eduprimehub.alpha.utils.ApplicationConstant;
-import com.eduprimehub.alpha.utils.ErrorCode;
-import com.eduprimehub.alpha.utils.GlobalExceptionHandler;
 import com.eduprimehub.alpha.validators.LoginValidator;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.Response;
 
 @Slf4j
 @RequestMapping(ApplicationConstant.LOGIN_BASE_URL)
@@ -27,11 +21,9 @@ public class LoginController {
     @Autowired
     private LoginValidator loginValidator;
 
-
-    @SneakyThrows
     @PostMapping(value = ApplicationConstant.LOGIN_EXTERNAL_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<?> loginExternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
-                                               HttpServletRequest httpServletRequest) {
+                                             HttpServletRequest httpServletRequest) throws Exception {
         GenericResponse<LoginResponse> response = new GenericResponse<>();
 
         try {
@@ -41,13 +33,16 @@ public class LoginController {
             //Todo: look for the response logic more generic
 //            return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseObject);
             return response.createSuccessResponse(loginResponseObject, 200);
+
             //Todo: look for more generic exception logic
-        } catch (BusinessException be) {
-            log.info("Business Exp {}", (Object) be.getStackTrace());
-            throw new BusinessException(be.getMessage());
-        } catch (Exception th) {
-            log.info("login Exp {}", (Object) th.getStackTrace());
-            throw new BusinessException(th.getMessage());
+
+        } catch (BusinessException businessException) {
+            log.info("Business Exp {}", String.valueOf(businessException.getCause()));
+            return response.createErrorResponse(businessException.getErrorCode(), businessException.getMessage());
+
+        } catch (Exception exception) {
+            log.info("login Exp {}", String.valueOf(exception.getCause()));
+            return response.createErrorResponse(408, exception.getMessage());
         }
     }
 

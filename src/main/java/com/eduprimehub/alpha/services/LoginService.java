@@ -11,14 +11,15 @@ import com.eduprimehub.alpha.models.objects.LoginResponse;
 import com.eduprimehub.alpha.repositories.UserAccessDetailsRepository;
 import com.eduprimehub.alpha.repositories.UserRepository;
 import com.eduprimehub.alpha.utils.TokenHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class LoginService {
 
     @Autowired
@@ -44,9 +45,10 @@ public class LoginService {
             Map<TokenTag, String> tokenMap;
 
             if (token != null) {
-                return userHelper.getLoginResponse(user, null,token);
+                return userHelper.getLoginResponse(user, null, token);
 
             } else {
+                log.info("Token is null! fetching userAccessDetails");
                 userAccessDetails = userAccessDetailsRepository.findUserAccessDetailsByUuidAndAndUserAccountStatus
                         (user, UserAccountStatus.ACTIVE.getUserAccountStatus());
 
@@ -56,11 +58,11 @@ public class LoginService {
 
                     return userHelper.getLoginResponse(user, userAccessDetails, userAccessDetails.getToken());
                 } else {
-                    throw new BusinessException("User is not Active! Please contact Admin!");
+                    throw new BusinessException(409, "User is not Active! Please contact Admin!");
                 }
             }
         } else {
-            throw new BusinessException("user doesn't exists!");
+            throw new BusinessException(409, "user doesn't exists!");
         }
     }
 
