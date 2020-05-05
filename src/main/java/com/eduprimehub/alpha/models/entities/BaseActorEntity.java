@@ -36,7 +36,7 @@ public class BaseActorEntity extends BaseEntity {
     @Column(columnDefinition = "varchar(45)", nullable = false)
     private String email;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private Gender gender;
 
     @Column(name = "date_of_birth", columnDefinition = "Date", nullable = false)

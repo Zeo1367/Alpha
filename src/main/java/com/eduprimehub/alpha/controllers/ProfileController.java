@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProfileController {
 
-    public ResponseEntity<?> fetchUserProfile(@RequestBody BaseRequest<UserInfo> profileRequest){
+    public ResponseEntity<?> fetchUserProfile(@RequestBody BaseRequest<UserInfo> profileRequest) {
 
         return null;
     }

@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -44,7 +43,7 @@ public class LoginService {
             Map<TokenTag, String> tokenMap;
 
             if (token != null) {
-                return userHelper.getLoginResponse(user, null,token);
+                return userHelper.getLoginResponse(user, null, token);
 
             } else {
                 userAccessDetails = userAccessDetailsRepository.findUserAccessDetailsByUuidAndAndUserAccountStatus

@@ -44,7 +44,7 @@ public class SignUpService {
             UserAccessDetails userAccessDetails = createUserAccessDetailsAfterSignup(user, signUpUserInfo.getPassword());
             userAccessDetailsRepository.save(userAccessDetails);
 
-            return userHelper.getLoginResponse(user, userAccessDetails,userAccessDetails.getToken());
+            return userHelper.getLoginResponse(user, userAccessDetails, userAccessDetails.getToken());
         } else {
             log.error("user already exists!");
             throw new BusinessException("user already exists");
@@ -54,6 +54,6 @@ public class SignUpService {
     private UserAccessDetails createUserAccessDetailsAfterSignup(User user, String password) {
 
         Map<TokenTag, String> tokenMap = tokenHandler.createToken(user.getUserName(), user.getUuid());
-        return userHelper.getUserAccessDetails(tokenMap, password,user);
+        return userHelper.getUserAccessDetails(tokenMap, password, user);
     }
 }

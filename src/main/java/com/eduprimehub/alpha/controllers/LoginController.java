@@ -3,19 +3,14 @@ package com.eduprimehub.alpha.controllers;
 import com.eduprimehub.alpha.models.objects.*;
 import com.eduprimehub.alpha.services.LoginService;
 import com.eduprimehub.alpha.utils.ApplicationConstant;
-import com.eduprimehub.alpha.utils.ErrorCode;
-import com.eduprimehub.alpha.utils.GlobalExceptionHandler;
 import com.eduprimehub.alpha.validators.LoginValidator;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.Response;
 
 @Slf4j
 @RequestMapping(ApplicationConstant.LOGIN_BASE_URL)
@@ -31,7 +26,7 @@ public class LoginController {
     @SneakyThrows
     @PostMapping(value = ApplicationConstant.LOGIN_EXTERNAL_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<?> loginExternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
-                                               HttpServletRequest httpServletRequest) {
+                                             HttpServletRequest httpServletRequest) {
         GenericResponse<LoginResponse> response = new GenericResponse<>();
 
         try {

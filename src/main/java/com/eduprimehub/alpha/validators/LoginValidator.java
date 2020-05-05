@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginValidator {
 
-    public LoginRequest validateLoginRequestObject(BaseRequest<LoginRequest> loginRequestObject){
+    public LoginRequest validateLoginRequestObject(BaseRequest<LoginRequest> loginRequestObject) {
         ValidationUtils.assertNotNull(loginRequestObject);
         LoginRequest loginRequest = loginRequestObject.getRequest();
-        ValidationUtils.assertNotNull(loginRequest,loginRequest.getUserName(),loginRequest.getPassword());
+        ValidationUtils.assertNotNull(loginRequest, loginRequest.getUserName(), loginRequest.getPassword());
         return loginRequest;
     }
 }

@@ -32,7 +32,7 @@ public class Displayable extends TextualIdentifiable {
 
     public void setId(String id) {
         if (StringUtils.isBlank(id)) {
-            super.setId((String)null);
+            super.setId((String) null);
         } else {
             super.setId(id);
         }

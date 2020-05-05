@@ -16,9 +16,9 @@ import lombok.ToString;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserAccessDetailInfo extends BaseObject{
+public class UserAccessDetailInfo extends BaseObject {
 
-//    private String password;
+    //    private String password;
     private Boolean isPremiumUser;
     private UserAccountStatus userAccountStatus;
     private UserActivityStatus userActivityStatus;

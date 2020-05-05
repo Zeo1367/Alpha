@@ -1,8 +1,6 @@
 package com.eduprimehub.alpha.models.objects;
 
 import com.eduprimehub.alpha.models.enums.Gender;
-import com.eduprimehub.alpha.models.enums.UserAccountStatus;
-import com.eduprimehub.alpha.models.enums.UserActivityStatus;
 import com.eduprimehub.alpha.models.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,7 +8,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 /**
