@@ -47,7 +47,7 @@ public class SignUpService {
             return userHelper.getLoginResponse(user, userAccessDetails, userAccessDetails.getToken());
         } else {
             log.error("user already exists!");
-            throw new BusinessException("user already exists");
+            throw new BusinessException(409,"user already exists");
         }
     }
 
