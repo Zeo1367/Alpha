@@ -9,7 +9,7 @@ group = 'com.eduprimehub'
 version = '0.0.1'
 sourceCompatibility = '1.8'
 
-apply plugin : 'jar'
+apply plugin : 'java'
 
 repositories {
     mavenCentral()
