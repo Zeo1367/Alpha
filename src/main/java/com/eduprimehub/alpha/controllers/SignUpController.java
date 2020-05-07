@@ -21,7 +21,7 @@ public class SignUpController {
     @Autowired
     private LoginValidator loginValidator;
 
-    @CrossOrigin
+    @CrossOrigin(origins = "*")
     @PostMapping(value = ApplicationConstant.SIGNUP_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<LoginResponse> signUpExternalUser(@RequestBody BaseRequest<UserInfo> signUpRequestObject,
                                                           HttpServletRequest httpServletRequest) {

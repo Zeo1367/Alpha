@@ -23,7 +23,7 @@ public class LoginController {
     private LoginValidator loginValidator;
 
     @SneakyThrows
-    @CrossOrigin
+    @CrossOrigin(origins = "*")
     @PostMapping(value = ApplicationConstant.LOGIN_EXTERNAL_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<?> loginExternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
                                              HttpServletRequest httpServletRequest) throws Exception {
