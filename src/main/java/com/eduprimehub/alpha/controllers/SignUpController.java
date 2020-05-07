@@ -7,10 +7,7 @@ import com.eduprimehub.alpha.validators.LoginValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,7 +21,7 @@ public class SignUpController {
     @Autowired
     private LoginValidator loginValidator;
 
-
+    @CrossOrigin
     @PostMapping(value = ApplicationConstant.SIGNUP_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<LoginResponse> signUpExternalUser(@RequestBody BaseRequest<UserInfo> signUpRequestObject,
                                                           HttpServletRequest httpServletRequest) {

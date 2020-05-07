@@ -4,6 +4,7 @@ import com.eduprimehub.alpha.models.objects.*;
 import com.eduprimehub.alpha.services.LoginService;
 import com.eduprimehub.alpha.utils.ApplicationConstant;
 import com.eduprimehub.alpha.validators.LoginValidator;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +22,8 @@ public class LoginController {
     @Autowired
     private LoginValidator loginValidator;
 
+    @SneakyThrows
+    @CrossOrigin
     @PostMapping(value = ApplicationConstant.LOGIN_EXTERNAL_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<?> loginExternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
                                              HttpServletRequest httpServletRequest) throws Exception {
