@@ -14,4 +14,7 @@ public class ApplicationConstant {
 
     public static final String SIGNUP_USER_URL = "/user";
     public static final String LOGIN_EXTERNAL_USER_URL = "/externalUser";
+    public static final String OTP_BASE_URL = "/otp";
+    public static final String VALIDATE_SIGNUP_URL = "/signUp/validate";
+    public static final String LOAD_DATA_URL = "/load_data";
 }

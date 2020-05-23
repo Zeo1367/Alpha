@@ -30,4 +30,10 @@ public class AlphaProperties {
 
     @NotEmpty(message = "token expiry time unit cannot be null!")
     private String tokenExpiryTimeUnit;
+
+    @NotEmpty(message = "otp expiry time cannot be null!")
+    private String otpExpiryTime;
+
+    @NotEmpty(message = "otp expiry time unit cannot be null!")
+    private String otpExpiryTimeUnit;
 }

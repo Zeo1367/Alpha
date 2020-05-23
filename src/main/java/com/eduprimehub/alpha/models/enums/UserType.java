@@ -8,8 +8,7 @@ import java.util.Map;
  */
 public enum UserType {
 
-    STUDENT("STUDENT"),
-    TEACHER("TEACHER"),
+    PLAYER("PLAYER"),
     ADMIN("ADMIN"),
     GROUP("GROUP"),
     FIRM("FIRM");

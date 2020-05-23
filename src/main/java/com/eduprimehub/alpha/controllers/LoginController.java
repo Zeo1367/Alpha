@@ -2,6 +2,8 @@ package com.eduprimehub.alpha.controllers;
 
 import com.eduprimehub.alpha.models.objects.*;
 import com.eduprimehub.alpha.services.LoginService;
+import com.eduprimehub.alpha.services.OtpService;
+import com.eduprimehub.alpha.services.SignUpService;
 import com.eduprimehub.alpha.utils.ApplicationConstant;
 import com.eduprimehub.alpha.validators.LoginValidator;
 import lombok.SneakyThrows;
@@ -19,20 +21,23 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+
     @Autowired
     private LoginValidator loginValidator;
+    @Autowired
+    private SignUpService signupService;
 
     @SneakyThrows
     @CrossOrigin(origins = "*")
     @PostMapping(value = ApplicationConstant.LOGIN_EXTERNAL_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse<?> loginExternalUser(@RequestBody BaseRequest<LoginRequest> loginRequestObject,
+    public BaseResponse<?> loginExternalUser(@RequestBody BaseRequest<OtpObject> loginRequestObject,
                                              HttpServletRequest httpServletRequest) throws Exception {
         GenericResponse<LoginResponse> response = new GenericResponse<>();
 
         try {
             //Todo: validator to be more effective
-            LoginRequest loginRequest = loginValidator.validateLoginRequestObject(loginRequestObject);
-            LoginResponse loginResponseObject = loginService.loginExternalUser(loginRequest);
+            OtpObject otpObject = loginValidator.validateLoginRequestObject(loginRequestObject);
+            LoginResponse loginResponseObject = signupService.validateSignup(otpObject);
             //Todo: look for the response logic more generic
 //            return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseObject);
             return response.createSuccessResponse(loginResponseObject, 200);

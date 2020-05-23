@@ -3,10 +3,9 @@ package com.eduprimehub.alpha.models.entities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -19,4 +18,16 @@ public class User extends BaseActorEntity implements Serializable {
 
     @Column(name = "user_type", columnDefinition = "varchar(50)", nullable = false)
     private String userType;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_sport", columnDefinition = "varchar(8)", referencedColumnName = "id")
+    private List<Sport> favoriteSports;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_country", columnDefinition = "varchar(8)", referencedColumnName = "id")
+    private List<Country> favoriteCountry;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_club", columnDefinition = "varchar(8)", referencedColumnName = "id")
+    private List<Club> favoriteClub;
 }

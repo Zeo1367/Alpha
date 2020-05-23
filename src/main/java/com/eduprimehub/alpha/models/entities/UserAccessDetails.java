@@ -39,4 +39,6 @@ public class UserAccessDetails extends BaseEntity implements Serializable {
 
     @Column(columnDefinition = "char(6)")
     private Integer otp;
+
+
 }

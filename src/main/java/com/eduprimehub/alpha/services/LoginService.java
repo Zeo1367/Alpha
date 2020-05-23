@@ -37,7 +37,7 @@ public class LoginService {
 
 
     public LoginResponse loginExternalUser(LoginRequest loginRequest) throws BusinessException {
-        User user = userRepository.findUserByUserName(loginRequest.getUserName());
+        User user = userRepository.findUserByMobileNumber(loginRequest.getMobileNumber());
         UserAccessDetails userAccessDetails;
 
         if (user != null) {

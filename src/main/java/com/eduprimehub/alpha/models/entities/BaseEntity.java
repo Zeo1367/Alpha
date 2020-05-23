@@ -15,6 +15,9 @@ public class BaseEntity {
     @GeneratedValue
     private Integer id;
 
+    @Column(name = "active", nullable = false)
+    private Boolean active;
+
     /**
      * Created UNIX time
      */

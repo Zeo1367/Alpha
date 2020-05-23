@@ -20,7 +20,7 @@ import java.util.List;
 public class BaseResponse<T> extends BaseObject {
 
     private Long timestamp;
-    private String id = Thread.currentThread().getName();
+    private String objectId = Thread.currentThread().getName();
     private T result;
     private List<T> listResult;
     private String status;

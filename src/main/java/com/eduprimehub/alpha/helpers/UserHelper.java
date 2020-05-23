@@ -31,7 +31,7 @@ public class UserHelper {
         BeanUtils.copyProperties(userInfo, user);
 
         user.setUuid(RandomStringUtils.randomAlphanumeric(8));
-        if (user.getUserType() == null) user.setUserType(UserType.STUDENT.getUserType());
+        if (user.getUserType() == null) user.setUserType(UserType.PLAYER.getUserType());
         return user;
     }
 

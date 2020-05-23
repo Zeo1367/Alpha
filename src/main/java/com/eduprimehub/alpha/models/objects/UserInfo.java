@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Aditya
@@ -27,11 +28,16 @@ public class UserInfo extends BaseObject {
     private String userName;
     private String mobileNumber;
     private String password;
+    private Integer otp;
     private String email;
     private Gender gender;
     private String status;
     private UserType userType;
     private Date dateOfBirth;
     private Boolean isUserVerified;
+
+    private Set<SportObject> sportObjects;
+    private Set<ClubObject> clubObjects;
+    private Set<CountryObject> countryObjects;
 
 }
