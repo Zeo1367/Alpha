@@ -23,7 +23,7 @@ public class RedisConfiguration {
     @Bean
     public JedisConnectionFactory getRedisConnectionFactory() {
 
-        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(alphaProperties.getRedisHost(), Integer.valueOf(alphaProperties.getRedisPort()));
+        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(alphaProperties.getRedisHostName(), Integer.valueOf(alphaProperties.getRedisPort()));
         JedisClientConfiguration jedisClientConfiguration = JedisClientConfiguration.builder().usePooling().build();
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(config, jedisClientConfiguration);
         jedisConnectionFactory.afterPropertiesSet();

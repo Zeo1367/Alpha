@@ -17,7 +17,7 @@ public class AlphaProperties {
     private String primaryDatabaseName;
 
     @NotEmpty(message = "redis host cannot be null!")
-    private String redisHost;
+    private String redisHostName;
 
     @NotEmpty(message = "redis port cannot be null!")
     private String redisPort;
