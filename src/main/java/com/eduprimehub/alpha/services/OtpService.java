@@ -37,6 +37,30 @@ public class OtpService {
     @Autowired
     private UserAccessDetailsRepository userAccessDetailsRepository;
 
+    public LoginResponse fetchOtpService (OtpObject otpObject) throws BusinessException {
+        User user = userRepository.findUserByMobileNumber(otpObject.getMobileNumber());
+
+        if(user!=null){
+        UserAccessDetails userAccessDetails = userAccessDetailsRepository.findUserAccessDetailsByUuidAndAndUserAccountStatus
+                    (user, UserAccountStatus.ACTIVE.getUserAccountStatus());
+
+            if (userAccessDetails != null) {
+                createAndSaveOtp(user.getMobileNumber(),userAccessDetails);
+                userAccessDetailsRepository.save(userAccessDetails);
+                return new LoginResponse();
+            }
+            throw new BusinessException(409, "User is not Active! Please contact Admin!");
+        }
+        throw new BusinessException(409, "user doesn't exists!");
+
+    }
+
+    public void createAndSaveOtp(String mobileNumber, UserAccessDetails userAccessDetails) {
+        Integer otp = fetchOtp(mobileNumber);
+        userAccessDetails.setOtp(otp);
+        saveOtpToRedis(mobileNumber, otp);
+    }
+
     public Integer fetchOtp(String mobileNumber) {
         User user = userRepository.findUserByMobileNumber(mobileNumber);
 

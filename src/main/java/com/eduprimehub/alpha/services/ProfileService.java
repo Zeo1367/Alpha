@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -43,31 +44,40 @@ public class ProfileService {
 
         if (sportId == null) {
             sportList = sportRepository.findByActive(Boolean.TRUE);
-            sportObjects = sportList.stream().map(sport -> {
-                SportObject sportObject = new SportObject();
-                BeanUtils.copyProperties(sport, sportObject);
-                return sportObject;
-            }).collect(Collectors.toSet());
 
+            if(!CollectionUtils.isEmpty(sportList)){
+                sportObjects = sportList.stream().map(sport -> {
+                    SportObject sportObject = new SportObject();
+                    BeanUtils.copyProperties(sport, sportObject);
+                    return sportObject;
+                }).collect(Collectors.toSet());
+            }
+        }
+        //Todo: all sports and data
+        else if(sportId.equals(1)){
 
-        } else {
+        }
+        else {
             Sport sport = sportRepository.findByIdAndActive(sportId, Boolean.TRUE);
-            clubList = clubRepository.findAllBySport(sport);
-            countryList = countryRepository.findAllBySport(sport);
+            clubList = clubRepository.findAllBySportAndActive(sport,Boolean.TRUE);
+            countryList = countryRepository.findAllBySportAndActive(sport,Boolean.TRUE);
 
-            clubObjects = clubList.stream().map(club -> {
-                ClubObject clubObject = new ClubObject();
-                clubObject.setId(club.getId());
-                clubObject.setClubName(club.getClubName());
-                return clubObject;
-            }).collect(Collectors.toSet());
-
-            countryObjects = countryList.stream().map(country -> {
-                CountryObject clubObject = new CountryObject();
-                clubObject.setId(country.getId());
-                clubObject.setCountryName(country.getCountryName());
-                return clubObject;
-            }).collect(Collectors.toSet());
+            if(!CollectionUtils.isEmpty(clubList)) {
+                clubObjects = clubList.stream().map(club -> {
+                    ClubObject clubObject = new ClubObject();
+                    clubObject.setId(club.getId());
+                    clubObject.setClubName(club.getClubName());
+                    return clubObject;
+                }).collect(Collectors.toSet());
+            }
+            if(!CollectionUtils.isEmpty(countryList)) {
+                countryObjects = countryList.stream().map(country -> {
+                    CountryObject clubObject = new CountryObject();
+                    clubObject.setId(country.getId());
+                    clubObject.setCountryName(country.getCountryName());
+                    return clubObject;
+                }).collect(Collectors.toSet());
+            }
         }
 
 

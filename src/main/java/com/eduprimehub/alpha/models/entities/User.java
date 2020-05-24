@@ -19,15 +19,15 @@ public class User extends BaseActorEntity implements Serializable {
     @Column(name = "user_type", columnDefinition = "varchar(50)", nullable = false)
     private String userType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "favorite_sport", columnDefinition = "varchar(8)", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_sports", columnDefinition = "int", referencedColumnName = "id")
     private List<Sport> favoriteSports;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "favorite_country", columnDefinition = "varchar(8)", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_countries", columnDefinition = "int", referencedColumnName = "id")
     private List<Country> favoriteCountry;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "favorite_club", columnDefinition = "varchar(8)", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_clubs", columnDefinition = "int", referencedColumnName = "id")
     private List<Club> favoriteClub;
 }

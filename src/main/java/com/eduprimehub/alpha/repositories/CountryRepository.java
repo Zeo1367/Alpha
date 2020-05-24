@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface CountryRepository extends JpaRepository<Country,Long> {
 
-    List<Country> findAllBySport(Sport sport);
+    List<Country> findAllBySportAndActive(Sport sport,Boolean active);
 }

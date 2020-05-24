@@ -33,12 +33,12 @@ public class ProfileController {
     @SneakyThrows
     @CrossOrigin(origins = "*")
     @GetMapping(value = ApplicationConstant.LOAD_DATA_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse<?> loadData(@RequestParam Integer sport) throws Exception {
+    public BaseResponse<?> loadData(@RequestParam(required = false) Integer sport) throws Exception {
         GenericResponse<UserInfo> response = new GenericResponse<>();
 
         try {
             //Todo: validator to be more effective
-            profileValidator.validateLoadDataObject(sport);
+//            profileValidator.validateLoadDataObject(sport);
             UserInfo userInfo = profileService.loadData(sport);
             //Todo: look for the response logic more generic
 //            return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseObject);

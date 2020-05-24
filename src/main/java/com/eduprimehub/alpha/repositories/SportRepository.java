@@ -11,7 +11,7 @@ import java.util.List;
 public interface SportRepository extends JpaRepository<Sport, Long> {
 
     List<Sport> findByActive(Boolean active);
-    List<Sport> findBySportsName(String sportsName);
+    List<Sport> findBySportName(String sportsName);
 
     Sport findByIdAndActive(Integer id,Boolean active);
 }

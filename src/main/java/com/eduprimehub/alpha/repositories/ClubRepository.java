@@ -12,6 +12,8 @@ import java.util.List;
 public interface ClubRepository extends JpaRepository<Club,Long> {
 
     List<Club> findAllBySport(Sport sport);
-    List<Club> findAllBySportAndCountr(Sport sport, Country country);
+    List<Club> findAllBySportAndCountry(Sport sport, Country country);
+
+    List<Club> findAllBySportAndActive(Sport sport, Boolean active);
 }
 

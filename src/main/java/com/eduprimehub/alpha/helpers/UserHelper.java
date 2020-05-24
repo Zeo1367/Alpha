@@ -30,6 +30,7 @@ public class UserHelper {
         User user = new User();
         BeanUtils.copyProperties(userInfo, user);
 
+        user.setActive(Boolean.TRUE);
         user.setUuid(RandomStringUtils.randomAlphanumeric(8));
         if (user.getUserType() == null) user.setUserType(UserType.PLAYER.getUserType());
         return user;
@@ -48,6 +49,7 @@ public class UserHelper {
         userAccessDetails.setIsPremiumUser(Boolean.FALSE);
         userAccessDetails.setPassword(password);
         userAccessDetails.setToken(tokenMap.get(TokenTag.TOKEN));
+        userAccessDetails.setActive(Boolean.TRUE);
         userAccessDetails.setTokenExpiryTime(Long.valueOf(tokenMap.get(TokenTag.TIMEOUT)));
         userAccessDetails.setUserAccountStatus(UserAccountStatus.ACTIVE.getUserAccountStatus());
         userAccessDetails.setUserActivityStatus(UserActivityStatus.OFFLINE.getUserActivityStatus());

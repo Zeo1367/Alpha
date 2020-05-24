@@ -25,7 +25,7 @@ public class OtpController {
 
     @SneakyThrows
     @CrossOrigin(origins = "*")
-    @PostMapping(value = ApplicationConstant.LOGIN_EXTERNAL_USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = ApplicationConstant.VALIDATE_OTP, produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<?> validateOtp(@RequestBody BaseRequest<OtpObject> otpRequestObject,
                                              HttpServletRequest httpServletRequest) throws Exception {
         GenericResponse<LoginResponse> response = new GenericResponse<>();
@@ -34,6 +34,33 @@ public class OtpController {
             //Todo: validator to be more effective
             OtpObject otpObject = loginValidator.validateOtpRequestObject(otpRequestObject);
             LoginResponse loginResponseObject = otpService.validateOtp(otpObject);
+            //Todo: look for the response logic more generic
+//            return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseObject);
+            return response.createSuccessResponse(loginResponseObject, 200);
+
+            //Todo: look for more generic exception logic
+
+        } catch (BusinessException businessException) {
+            log.info("Business Exp {}", String.valueOf(businessException.getCause()));
+            return response.createErrorResponse(businessException.getErrorCode(), businessException.getMessage());
+
+        } catch (Exception exception) {
+            log.info("login Exp {}", String.valueOf(exception.getCause()));
+            return response.createErrorResponse(408, exception.getMessage());
+        }
+    }
+
+    @SneakyThrows
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = ApplicationConstant.FETCH_OTP, produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse<?> fetchOtp(@RequestBody BaseRequest<OtpObject> otpRequestObject,
+                                       HttpServletRequest httpServletRequest) throws Exception {
+        GenericResponse<LoginResponse> response = new GenericResponse<>();
+
+        try {
+            //Todo: validator to be more effective
+            OtpObject otpObject = loginValidator.validateRequestForOtpObject(otpRequestObject);
+            LoginResponse loginResponseObject = otpService.fetchOtpService(otpObject);
             //Todo: look for the response logic more generic
 //            return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseObject);
             return response.createSuccessResponse(loginResponseObject, 200);

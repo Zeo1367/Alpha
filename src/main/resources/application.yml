@@ -30,6 +30,8 @@ alpha:
   redisActive: ${ALPHA_REDIS_ACTIVE}
   tokenExpiryTime: ${ALPHA_TOKEN_EXPIRY_TIME}
   tokenExpiryTimeUnit: ${ALPHA_TOKEN_EXPIRY_TIME_UNIT}
+  otpExpiryTime: ${ALPHA_OTP_EXPIRY_TIME}
+  otpExpiryTimeUnit: ${ALPHA_OTP_EXPIRY_TIME_UNIT}
 
 #spring:
 #  mail:

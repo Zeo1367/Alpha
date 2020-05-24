@@ -47,4 +47,15 @@ public class LoginValidator {
         ValidationUtils.assertNotNull(otpObject.getOtp(), "Otp must not be empty");
         return otpObject;
     }
+
+
+    public OtpObject validateRequestForOtpObject(BaseRequest<OtpObject> otpObjectBaseRequest) {
+
+        ValidationUtils.assertNotNull(otpObjectBaseRequest,"Request must not be empty!");
+        OtpObject otpObject = otpObjectBaseRequest.getRequest();
+
+        ValidationUtils.assertNotNull(otpObject,"Request Object must not be empty");
+        ValidationUtils.assertNotNull(otpObject.getMobileNumber(), "MobileNumber must not be empty");
+        return otpObject;
+    }
 }

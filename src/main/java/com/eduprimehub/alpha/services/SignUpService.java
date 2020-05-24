@@ -46,7 +46,7 @@ public class SignUpService {
             userRepository.save(user);
 
             UserAccessDetails userAccessDetails = createUserAccessDetailsAfterSignup(user, signUpUserInfo.getPassword());
-            createAndSaveOtp(user.getMobileNumber(), userAccessDetails);
+            otpService.createAndSaveOtp(user.getMobileNumber(), userAccessDetails);
             userAccessDetailsRepository.save(userAccessDetails);
 
             return userHelper.getLoginResponse(user, userAccessDetails, userAccessDetails.getToken());
@@ -63,11 +63,7 @@ public class SignUpService {
         return userHelper.getUserAccessDetails(tokenMap, password, user);
     }
 
-    private void createAndSaveOtp(String mobileNumber, UserAccessDetails userAccessDetails) {
-        Integer otp = otpService.fetchOtp(mobileNumber);
-        userAccessDetails.setOtp(otp);
-        otpService.saveOtpToRedis(mobileNumber, otp);
-    }
+
 
     public LoginResponse validateSignup(OtpObject otpObject) throws BusinessException {
         LoginResponse loginResponse = otpService.validateOtp(otpObject);

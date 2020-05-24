@@ -13,5 +13,5 @@ import lombok.ToString;
 @Data
 public class SportObject extends BaseObject {
 
-    private String sportsName;
+    private String sportName;
 }

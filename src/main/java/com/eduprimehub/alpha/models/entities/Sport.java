@@ -13,6 +13,6 @@ import javax.persistence.Table;
 @Data
 public class Sport extends BaseEntity{
 
-    @Column(name = "sports_name",columnDefinition = "varchar(20)", nullable = false)
-    private String sportsName;
+    @Column(name = "sport_name",columnDefinition = "varchar(20)", nullable = false)
+    private String sportName;
 }

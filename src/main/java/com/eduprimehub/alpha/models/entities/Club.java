@@ -15,10 +15,10 @@ public class Club extends BaseEntity{
     private String clubName;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "country", columnDefinition = "varchar(30)", referencedColumnName = "country_name")
+    @JoinColumn(name = "country", columnDefinition = "int", referencedColumnName = "id")
     private Country country;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sport", columnDefinition = "varchar(20)", referencedColumnName = "sport_name")
+    @JoinColumn(name = "sport", columnDefinition = "int", referencedColumnName = "id")
     private Sport sport;
 }

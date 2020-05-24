@@ -15,6 +15,6 @@ public class Country extends BaseEntity{
     private String countryName;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sport", columnDefinition = "varchar(20)", referencedColumnName = "id")
+    @JoinColumn(name = "sport", columnDefinition = "int", referencedColumnName = "id")
     private Sport sport;
 }
